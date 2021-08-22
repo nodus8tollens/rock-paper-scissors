@@ -1,1 +1,0 @@
-A simple rock-paper-scissors JS/HTML/CSS game.
