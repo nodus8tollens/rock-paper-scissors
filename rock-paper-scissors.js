@@ -1,5 +1,3 @@
-
-//Function for random generation of computer value.
 function computerPlay(){
     if (Math.floor(Math.random()*3) === 0){
         return "rock";
@@ -11,46 +9,82 @@ function computerPlay(){
         return "scissors";
     }
 }
-//Function for playing one round and determining the outcome.
+
+let pS = 0;
+let cS = 0;
 function playRound(playerSelection, computerSelection){
-    playerSelection.toLowerCase();
     if(playerSelection === computerSelection){
         return "It's a DRAW.";
     }
     else if(playerSelection === "rock" && computerSelection ==="scissors" ||
             playerSelection === "paper" && computerSelection ==="rock" ||
             playerSelection === "scissors" && computerSelection ==="paper"){
+        pS++;
         return `${playerSelection} beats ${computerSelection}. Player wins.`;
     }
     else{
-        return `${computerSelection} beats ${playerSelection} . Computer wins.`;
+        cS++;
+        return `${computerSelection} beats ${playerSelection}. Computer wins.`;
     }
 }
-//Function for playing five consecutive rounds, keeping score and printing the final outcome.
-function game(){
-    //pl, pc are player and computer scores respectively.
-    let pl, pc = 0;
-    for(let i = 0; i < 5; i++){
-        //Generate five rounds. Prompt player for choice. Play rounds and update pl, pc - scores.
-        let player = prompt("Rock, paper or scissors?").toLowerCase();
-        alert(playRound(player, computerPlay()));
-        if(playRound(player, computerPlay()).includes("Player")){
-            pl++;
-        }
-        else if(playRound(player, computerPlay()).includes("Computer")) {
-            pc++;
-        }
-        else{
-            continue;
-        }
+
+const container = document.querySelector('body');
+
+const rock = document.createElement('button');
+rock.id = "rock";
+rock.textContent = "Rock"
+const paper = document.createElement('button');
+paper.id = "paper";
+paper.textContent = "Paper"
+const scissors = document.createElement('button');
+scissors.id = "scissors";
+scissors.textContent = "Scissors"
+
+container.appendChild(rock);
+container.appendChild(paper);
+container.appendChild(scissors);
+
+const r = document.querySelector('#rock');
+const p = document.querySelector('#paper');
+const s = document.querySelector('#scissors');
+
+const div = document.createElement('div');
+
+r.addEventListener('click', () => {
+    if(pS === 5 || cS === 5){
+        div.textContent = `Game Over. Final score is ${pS}:${cS}.`;
     }
-    if(pl > pc){
-        alert("Game Over. Player wins.");
+    else {
+        div.textContent = playRound('rock', computerPlay());
     }
-    else if(pc > pl){
-        alert("Game Over. Computer wins.");
+   console.log(pS, cS);
+});
+p.addEventListener('click', () => {
+    if(pS === 5 || cS === 5){
+        div.textContent = `Game Over. Final score is ${pS}:${cS}.`;
     }
-    else{
-        alert("Game Over. It's a draw.");
+    else {
+        div.textContent = playRound('paper', computerPlay());
     }
-}
+    console.log(pS, cS);
+});
+
+s.addEventListener('click', () => {
+    if(pS === 5 || cS === 5){
+        div.textContent = `Game Over. Final score is ${pS}:${cS}.`;
+    }
+    else {
+        div.textContent = playRound('scissors', computerPlay());
+    }
+    console.log(pS, cS);
+});
+
+container.appendChild(div);
+
+
+
+
+
+
+
+
